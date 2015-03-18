@@ -8,8 +8,10 @@ use feature qw/say/;
 use Test::More;
 use Test::Deep;
 
+say $_ for @{ update_crontab() };
+
 sub get_bmp_crontab_entry {
-    my $relative_restart = 'restart-bmp.sh';
+    my $relative_restart = 'restart-bmp.pl';
     my $restart_bmp = abs_path(dirname(__FILE__) . '/' . $relative_restart);
 
     my $bmp_crontab_entry = qq%
@@ -70,10 +72,8 @@ sub update_crontab {
     my $filtered_crontab = remove_existing_entry();
     my $updated_crontab = add_browsermob($filtered_crontab);
 
-    say $_ for @$updated_crontab;
+    return $updated_crontab;
 }
-
-update_crontab();
 
 # TESTS: {
 #     my @fake_crontab = @{ get_bmp_crontab_entry() };
