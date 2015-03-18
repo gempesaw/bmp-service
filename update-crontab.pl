@@ -75,38 +75,35 @@ sub update_crontab {
 
 update_crontab();
 
-# tests
-SKIP: {
-    skip 'tests are diagnostic', 1 unless @ARGV;
+# TESTS: {
+#     my @fake_crontab = @{ get_bmp_crontab_entry() };
+#     unshift @fake_crontab, 'first';
+#     push @fake_crontab, 'last';
 
-    my @fake_crontab = @{ get_bmp_crontab_entry() };
-    unshift @fake_crontab, 'first';
-    push @fake_crontab, 'last';
-
-  REMOVE_EXISTING: {
-        my @fake = @fake_crontab;
+#   REMOVE_EXISTING: {
+#         my @fake = @fake_crontab;
 
 
-        my $filtered = remove_existing_entry(\@fake);
+#         my $filtered = remove_existing_entry(\@fake);
 
-        cmp_deeply( $filtered, [
-            'first',
-            '',
-            'last',
-            ''
-        ], 'Can remove browsermob entries');
-        ok($filtered->[-1] eq '', 'Removal put an empty line at the end of the crontab');
-    }
+#         cmp_deeply( $filtered, [
+#             'first',
+#             '',
+#             'last',
+#             ''
+#         ], 'Can remove browsermob entries');
+#         ok($filtered->[-1] eq '', 'Removal put an empty line at the end of the crontab');
+#     }
 
-  ADD_NEW: {
-        my @fake = @fake_crontab;
-        my $updated = add_browsermob(@fake);
+#   ADD_NEW: {
+#         my @fake = @fake_crontab;
+#         my $updated = add_browsermob(@fake);
 
-        my $updated_string = join('', @$updated);
-        ok($updated_string =~ /### start: browsermob.*### end: browsermob/,
-           'updated crontab has our BMP entries');
-        is($updated->[-1], '', 'Addition ensures an empty line at the end of the crontab');
-    }
+#         my $updated_string = join('', @$updated);
+#         ok($updated_string =~ /### start: browsermob.*### end: browsermob/,
+#            'updated crontab has our BMP entries');
+#         is($updated->[-1], '', 'Addition ensures an empty line at the end of the crontab');
+#     }
 
-    done_testing;
-}
+#     done_testing;
+# }
