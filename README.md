@@ -7,3 +7,8 @@ general.
 This repo stores the current binary of the Browsermob Server, as well
 as some crontab scripts to keep it up and running if it happens to
 die.
+
+
+### todo
+
+- put the .pl files in bin/ so cpanm will make them available in path
