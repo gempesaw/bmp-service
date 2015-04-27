@@ -1,0 +1,25 @@
+# bail out asap
+set -e
+
+HOME=$PWD
+
+# get source
+git clone --depth 1 https://github.com/lightbody/browsermob-proxy tmp-browsermob-proxy
+cd tmp-browsermob-proxy
+
+# generate binaries
+mvn clean install -P release -DskipTests
+cd browsermob-dist/target/
+
+DIST=browsermob-proxy-2.1.0-beta-1-SNAPSHOT
+unzip -o $DIST-bin.zip
+
+DEST=$HOME/browsermob-proxy
+rm -rf $DEST
+
+# put the binaries where we expect to find them
+cp -R $DIST/ $DEST
+
+# cleanup
+cd $HOME
+rm -rf tmp-browsermob-proxy
