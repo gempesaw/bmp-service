@@ -26,11 +26,11 @@ die 'This is the wrong binary: ' . $bmp_binary
 my $args = ' --use-littleproxy true ';
 
 # TODO: utilize Honeydew::Config to set this on the correct port
-my $restart_cmd = 'JAVACMD=$(which java) nohup ' . $bmp_binary . $args . ' > /dev/null 2>&1 &';
+my $restart_cmd = 'JAVACMD=$(which java) ' . $bmp_binary . $args;
 say $restart_cmd;
 
 say 'Sleeping a moment to let them die...';
 sleep(2);
 say 'Starting new BMP process!';
-# daemonize();
-# exec( $restart_cmd );
+daemonize();
+exec( $restart_cmd );
