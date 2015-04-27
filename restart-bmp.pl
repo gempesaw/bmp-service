@@ -23,12 +23,14 @@ my $bmp_binary = abs_path(dirname(__FILE__) . '/' . $relative_bmp_binary);
 die 'This is the wrong binary: ' . $bmp_binary
   unless -x $bmp_binary;
 
+my $args = ' --use-littleproxy true ';
+
 # TODO: utilize Honeydew::Config to set this on the correct port
-my $restart_cmd = 'JAVACMD=$(which java) nohup ' . $bmp_binary . ' > /dev/null 2>&1 &';
+my $restart_cmd = 'JAVACMD=$(which java) nohup ' . $bmp_binary . $args . ' > /dev/null 2>&1 &';
 say $restart_cmd;
 
 say 'Sleeping a moment to let them die...';
 sleep(2);
 say 'Starting new BMP process!';
-daemonize();
-exec( $restart_cmd );
+# daemonize();
+# exec( $restart_cmd );
