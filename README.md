@@ -8,7 +8,13 @@ This repo stores the current binary of the Browsermob Server, as well
 as some crontab scripts to keep it up and running if it happens to
 die.
 
+### usage
+
+- `./bmp-update` : build a new browsermob binary
+- `./bmp-crontab | crontab`: put the bmp entries into the crontab
+- `./bmp-restart`: restart browsermob proxy. The crontab entry uses this file.
+
 
 ### todo
 
-- put the .pl files in bin/ so cpanm will make them available in path
+- put the files in bin/ so cpanm will make them available in path ?
