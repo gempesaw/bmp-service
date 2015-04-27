@@ -1,3 +1,5 @@
+#/bin/sh
+
 # bail out asap
 set -e
 
