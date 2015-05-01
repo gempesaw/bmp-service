@@ -6,6 +6,7 @@ use warnings;
 use Cwd qw/abs_path/;
 use File::Basename qw/dirname/;
 use File::Spec;
+
 use feature qw/say/;
 use Honeydew::ExternalServices::Crontab qw/add_crontab_section/;
 
@@ -19,8 +20,6 @@ sub get_bmp_crontab_entry {
     );
 
     my $bmp_crontab_entry = qq%# delete orphaned ssl folders older than an hour
-0 * * * * find /tmp -name "selenium*" -mmin +60 -exec rm -rf {} \\; > /dev/null 2>&1
-
 # restart the browsermob process if needed
 */5 * * * * if [ \$(ps aux | grep [j]ava.*bmp | wc -l) -eq '0' ]; then $restart_bmp ; fi
 %;
