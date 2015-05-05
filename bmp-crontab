@@ -19,9 +19,11 @@ sub get_bmp_crontab_entry {
         $relative_restart
     );
 
-    my $bmp_crontab_entry = qq%# delete orphaned ssl folders older than an hour
-# restart the browsermob process if needed
+    my $bmp_crontab_entry = qq%# restart the browsermob process if needed
 */5 * * * * if [ \$(ps aux | grep [j]ava.*bmp | wc -l) -eq '0' ]; then $restart_bmp ; fi
+
+# force a restart every night before the nightlies
+55 19 * * * $restart_bmp
 %;
 
     return [ split("\n", $bmp_crontab_entry) ];
@@ -29,5 +31,4 @@ sub get_bmp_crontab_entry {
 
 sub update_crontab {
     return add_crontab_section( 'browsermob', get_bmp_crontab_entry() );
-
 }
