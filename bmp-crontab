@@ -23,7 +23,7 @@ sub get_bmp_crontab_entry {
 */5 * * * * if [ \$(ps aux | grep [j]ava.*bmp | wc -l) -eq '0' ]; then $restart_bmp ; fi
 
 # force a restart every night before the nightlies
-55 19 * * * $restart_bmp
+55 19 * * * source ~/.bashrc; $restart_bmp
 %;
 
     return [ split("\n", $bmp_crontab_entry) ];
