@@ -1,2 +1,5 @@
 /littleproxy_cert
 /littleproxy_keystore.jks
+/Honeydew-ProxyService*
+.build
+.dir-locals.el
