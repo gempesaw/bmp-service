@@ -5,6 +5,11 @@ use warnings;
 use Test::Spec;
 use Honeydew::ProxyService;
 
+eval { Honeydew::ProxyService::_get_bmp_binary(); };
+if ($@) {
+    plan skip_all => 'Author tests are not required for installation';
+}
+
 describe 'Proxy restart' => sub {
     it 'should find an actual file for the bmp binary' => sub {
         my $binary = Honeydew::ProxyService::_get_bmp_binary();
