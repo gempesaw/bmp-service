@@ -3,5 +3,4 @@
 /Honeydew-ProxyService*
 .build
 .dir-locals.el
-/lib/Honeydew/ProxyService/browsermob-proxy/
 /lib/Honeydew/ProxyService/tmp-browsermob-proxy/

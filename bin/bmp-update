@@ -5,7 +5,8 @@
 # bail out asap
 set -e
 
-HOME=$(perldoc -l Honeydew::ProxyService | sed 's/.pm$//')
+# HOME=$(perldoc -l Honeydew::ProxyService | sed 's/.pm$//')
+HOME=$(git rev-parse --show-toplevel)/lib/Honeydew/ProxyService
 TMP_GIT_DIR=$HOME/tmp-browsermob-proxy
 mkdir -p $HOME
 
