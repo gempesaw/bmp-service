@@ -1,0 +1,75 @@
+#! /usr/bin/perl
+
+# PODNAME: bmp-crontab
+# ABSTRACT: add our entries to the crontab
+use strict;
+use warnings;
+use feature qw/say/;
+use Honeydew::ProxyService qw/update_crontab/;
+
+
+say $_ for @{ update_crontab() };
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+bmp-crontab - add our entries to the crontab
+
+=head1 VERSION
+
+version 0.02
+
+=head1 SYNOPSIS
+
+    bmp-crontab # echoes the new crontab to STDOUT
+    bmp-crontab | crontab # OVERWRITES the current crontab with our section appended to the end
+
+=head1 DESCRIPTION
+
+This script can be used to modify your crontab to include the cronjobs
+that will take care of the Browsermob Proxy service. This script takes
+no arguments, and simply prints to STDOUT a modified crontab. If you'd
+like to replace your current crontab with the modified one, you should
+pipe the output to the crontab command like such:
+
+    bmp-crontab
+
+=head1 SEE ALSO
+
+Please see those modules/websites for more information related to this module.
+
+=over 4
+
+=item *
+
+L<Honeydew::ProxyService|Honeydew::ProxyService>
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/honeydew-sc/Honeydew-ProxyService/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Daniel Gempesaw <gempesaw@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Daniel Gempesaw.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

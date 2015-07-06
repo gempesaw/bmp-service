@@ -1,0 +1,69 @@
+#/bin/sh
+
+# PODNAME: bmp-install
+# ABSTRACT: Help you download the BMP server binaries
+set -e
+
+PROJECT=Honeydew-ProxyService
+REPO=https://github.com/honeydew-sc/$PROJECT
+
+cd /tmp
+rm -rf /tmp/$PROJECT
+git clone $REPO
+
+cd /tmp/$PROJECT
+git checkout cpan
+
+perl Makefile.PL
+make
+make test
+make install
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+bmp-install - Help you download the BMP server binaries
+
+=head1 VERSION
+
+version 0.02
+
+=head1 SEE ALSO
+
+Please see those modules/websites for more information related to this module.
+
+=over 4
+
+=item *
+
+L<Honeydew::ProxyService|Honeydew::ProxyService>
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/honeydew-sc/Honeydew-ProxyService/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Daniel Gempesaw <gempesaw@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Daniel Gempesaw.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

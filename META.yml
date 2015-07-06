@@ -1,0 +1,31 @@
+---
+abstract: 'A collection of convenience functions for managing Browsermob Proxy'
+author:
+  - 'Daniel Gempesaw <gempesaw@gmail.com>'
+build_requires:
+  Test::Spec: '0'
+configure_requires:
+  ExtUtils::MakeMaker: '0'
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.036, CPAN::Meta::Converter version 2.143240'
+license: mit
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Honeydew-ProxyService
+requires:
+  Browsermob::Proxy: '0'
+  Cwd: '0'
+  Exporter: '0'
+  File::Basename: '0'
+  File::Spec: '0'
+  Honeydew::ExternalServices: '0'
+  Honeydew::ExternalServices::Crontab: '0'
+  feature: '0'
+  strict: '0'
+  warnings: '0'
+resources:
+  bugtracker: https://github.com/honeydew-sc/Honeydew-ProxyService/issues
+  homepage: https://github.com/honeydew-sc/Honeydew-ProxyService
+  repository: https://github.com/honeydew-sc/Honeydew-ProxyService.git
+version: '0.02'

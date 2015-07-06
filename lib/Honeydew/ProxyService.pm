@@ -1,0 +1,179 @@
+package Honeydew::ProxyService;
+$Honeydew::ProxyService::VERSION = '0.02';
+# ABSTRACT: A collection of convenience functions for managing Browsermob Proxy
+require Exporter;
+our @ISA = qw/Exporter/;
+our @EXPORT_OK = qw/update_crontab
+                    restart_bmp_process/;
+
+use Cwd qw/abs_path/;
+use File::Basename qw/dirname/;
+use File::Spec;
+use feature qw/say/;
+use Browsermob::Proxy;
+use Honeydew::ExternalServices qw/daemonize/;
+use Honeydew::ExternalServices::Crontab qw/add_crontab_section/;
+
+
+sub update_crontab {
+    return add_crontab_section( 'browsermob', _get_bmp_crontab_entry() );
+}
+
+sub _get_bmp_crontab_entry {
+    my $restart_bmp = 'bmp-restart';
+
+    my $bmp_crontab_entry = qq%# restart the browsermob process if needed
+*/5 * * * * source ~/.bashrc; $restart_bmp check_status
+
+# force a restart every night before the nightlies
+55 19 * * * source ~/.bashrc; $restart_bmp
+%;
+
+    return [ split("\n", $bmp_crontab_entry) ];
+}
+
+sub check_bmp_status {
+    my %args = ( port => 65432 );
+    # The BMP module should forcibly throw if anything goes wrong, so
+    # if we make it out of this sub, we should be fine. Also, when the
+    # C<$proxy> object goes out of scope, it will call delete on its
+    # own, so we're test creation and deletion in the next two lines.
+    my $bmp_status = 0;
+    eval {
+        my $proxy = Browsermob::Proxy->new( %args );
+        $bmp_status = !!$proxy;
+    };
+
+    return $bmp_status;
+}
+
+sub restart_bmp_process {
+    my ($check_status_first) = @_;
+
+    if ($check_status_first) {
+        my $isProxyWorking = check_bmp_status();
+        if ($isProxyWorking) {
+            say 'Proxy Server can create and delete proxies';
+            return 1;
+        }
+        else {
+            say 'Proxy server is not working; going ahead and making you a new one...';
+        }
+    }
+
+    _kill_existing_bmp_process();
+
+    my $restart_cmd = _get_bmp_start_command();
+    start_new_bmp( $restart_cmd );
+}
+
+sub _kill_existing_bmp_process {
+    my $get_bmp_pid = q(ps -ef | awk '/java.*[b]rowsermob/{ print $2 }');
+
+    my @pids = split("\n", `$get_bmp_pid`);
+    if (scalar @pids) {
+        say 'bmp pid: ' . $_ for @pids;
+
+        # The bmp process when daemonized doesn't respect HUP, INT or QUIT. So
+        # we're using TERM.
+        kill 15, @pids if scalar @pids;
+        say 'Killed other BMP pids...';
+    }
+    else {
+        say 'No BMP processes to kill.';
+    }
+}
+
+sub _get_bmp_binary {
+    my $relative_bmp_binary = 'ProxyService/browsermob-proxy/bin/browsermob-proxy';
+    my $bmp_binary = abs_path(dirname(__FILE__) . '/' . $relative_bmp_binary);
+
+    die 'This is the wrong binary: ' . $bmp_binary
+      unless -x $bmp_binary;
+
+    return $bmp_binary;
+}
+
+sub _get_bmp_start_command {
+    my $bmp_binary = _get_bmp_binary();
+    my $args = ' --use-littleproxy true ';
+
+    # TODO: utilize Honeydew::Config to set this on the correct port
+    my $restart_cmd = 'JAVACMD=$(which java) PATH=/usr/bin:$PATH ' . $bmp_binary . $args;
+    say $restart_cmd;
+
+    return $restart_cmd;
+}
+
+sub start_new_bmp {
+    my ($cmd) = @_;
+
+    say 'Sleeping a moment to let them die...';
+    sleep(2);
+    say 'Starting new BMP process!';
+    daemonize();
+    exec( $cmd );
+}
+
+1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Honeydew::ProxyService - A collection of convenience functions for managing Browsermob Proxy
+
+=for markdown [![Build Status](https://travis-ci.org/honeydew-sc/Honeydew-ProxyService.svg?branch=master)](https://travis-ci.org/honeydew-sc/Honeydew-ProxyService)
+
+=head1 VERSION
+
+version 0.02
+
+=head1 SYNOPSIS
+
+    $ bmp-install # installs the specified version of Browsermob Proxy
+    $ bmp-crontab # outputs to STDOUT a modified crontab
+    $ bmp-restart # forcefully restarts the browsermob proxy
+
+=head1 DESCRIPTION
+
+HoneydewSC uses Browsermob Proxy to analyze the traffic that our tests
+generate in order to assert tests about analytics and traffic in
+general.
+
+This repo stores the current binary of the Browsermob Server, as well
+as some crontab scripts to keep it up and running if it happens to
+die.
+
+If you've installed this from Stratopan or CPAN, you should run
+C<bmp-install> first to get the BMP binaries into your path where this
+module expects them. Otherwise, C<bmp-restart> won't accomplish
+anything - in particular, it won't start up a server because the
+server isn't included in the module tarball due to size constraints.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/honeydew-sc/Honeydew-ProxyService/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Daniel Gempesaw <gempesaw@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Daniel Gempesaw.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

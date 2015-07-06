@@ -1,0 +1,84 @@
+#/bin/sh
+
+# PODNAME: bmp-update
+# ABSTRACT: build the newest version of the BMP proxy
+# bail out asap
+set -e
+
+# HOME=$(perldoc -l Honeydew::ProxyService | sed 's/.pm$//')
+HOME=$(git rev-parse --show-toplevel)/lib/Honeydew/ProxyService
+TMP_GIT_DIR=$HOME/tmp-browsermob-proxy
+mkdir -p $HOME
+
+cd $HOME
+rm -rf $TMP_GIT_DIR
+
+# get source
+git clone --depth 1 -o db0914f537282ac0c321036db7640b5d8ac87679 https://github.com/lightbody/browsermob-proxy $TMP_GIT_DIR
+cd $TMP_GIT_DIR
+
+# generate binaries
+mvn clean install -P release -DskipTests
+cd browsermob-dist/target/
+
+DIST=browsermob-proxy-2.1.0-beta-2-SNAPSHOT
+unzip -o $DIST-bin.zip
+
+DEST=$HOME/browsermob-proxy
+rm -rf $DEST
+
+# put the binaries where we expect to find them
+cp -R $DIST/ $DEST
+
+# cleanup
+cd $HOME
+rm -rf $TMP_GIT_DIR
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+bmp-update - build the newest version of the BMP proxy
+
+=head1 VERSION
+
+version 0.02
+
+=head1 SEE ALSO
+
+Please see those modules/websites for more information related to this module.
+
+=over 4
+
+=item *
+
+L<Honeydew::ProxyService|Honeydew::ProxyService>
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/honeydew-sc/Honeydew-ProxyService/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Daniel Gempesaw <gempesaw@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Daniel Gempesaw.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut

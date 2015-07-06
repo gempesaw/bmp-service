@@ -1,0 +1,75 @@
+#! /usr/bin/perl
+
+# PODNAME: bmp-restart
+# ABSTRACT: violently kill and less violently restart the bmp process
+use strict;
+use warnings;
+use Honeydew::ProxyService qw/restart_bmp_process/;
+
+
+restart_bmp_process(@ARGV);
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+bmp-restart - violently kill and less violently restart the bmp process
+
+=head1 VERSION
+
+version 0.02
+
+=head1 SYNOPSIS
+
+    bmp-restart
+    bmp-restart check
+
+=head1 DESCRIPTION
+
+By default, this script will restart the proxy: it will look for the
+pid of any currently running BMP servers, and kill them. Next, it will
+start a new proxy up on localhost:8080 and then exit.
+
+If you pass any argument in, we'll first check the status of the proxy
+before restarting. If we can make a proxy, we won't do anything. If we
+can't make a proxy, we will proceed as normal via killing and
+restarting a new BMP process.
+
+=head1 SEE ALSO
+
+Please see those modules/websites for more information related to this module.
+
+=over 4
+
+=item *
+
+L<Honeydew::ProxyService|Honeydew::ProxyService>
+
+=back
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/honeydew-sc/Honeydew-ProxyService/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Daniel Gempesaw <gempesaw@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Daniel Gempesaw.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
+
+=cut
