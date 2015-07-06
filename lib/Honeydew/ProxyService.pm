@@ -57,8 +57,13 @@ sub check_bmp_status {
     # if we make it out of this sub, we should be fine. Also, when the
     # C<$proxy> object goes out of scope, it will call delete on its
     # own, so we're test creation and deletion in the next two lines.
-    my $proxy = Browsermob::Proxy->new( %args );
-    return !!$proxy;
+    my $bmp_status = 0;
+    eval {
+        my $proxy = Browsermob::Proxy->new( %args );
+        $bmp_status = !!$proxy;
+    };
+
+    return $bmp_status;
 }
 
 sub restart_bmp_process {
@@ -69,6 +74,9 @@ sub restart_bmp_process {
         if ($isProxyWorking) {
             say 'Proxy Server can create and delete proxies';
             return 1;
+        }
+        else {
+            say 'Proxy server is not working; going ahead and making you a new one...';
         }
     }
 
