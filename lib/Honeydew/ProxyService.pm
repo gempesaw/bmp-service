@@ -14,6 +14,8 @@ use Browsermob::Proxy;
 use Honeydew::ExternalServices qw/daemonize/;
 use Honeydew::ExternalServices::Crontab qw/add_crontab_section/;
 
+=for markdown [![Build Status](https://travis-ci.org/honeydew-sc/Honeydew-ProxyService.svg?branch=master)](https://travis-ci.org/honeydew-sc/Honeydew-ProxyService)
+
 =head1 SYNOPSIS
 
     $ bmp-update  # updates to the newest version of Browsermob Proxy from master

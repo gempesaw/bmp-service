@@ -2,6 +2,8 @@
 
 Honeydew::ProxyService - A collection of convenience functions for managing Browsermob Proxy
 
+[![Build Status](https://travis-ci.org/honeydew-sc/Honeydew-ProxyService.svg?branch=master)](https://travis-ci.org/honeydew-sc/Honeydew-ProxyService)
+
 # VERSION
 
 version 0.01
@@ -25,7 +27,7 @@ die.
 # BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/honeydew-sc/bmp-service/issues
+https://github.com/honeydew-sc/Honeydew-ProxyService/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
