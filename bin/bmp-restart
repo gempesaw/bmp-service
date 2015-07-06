@@ -1,0 +1,27 @@
+#! /usr/bin/perl
+
+# PODNAME: bmp-restart
+# ABSTRACT: violently kill and less violently restart the bmp process
+use strict;
+use warnings;
+use Honeydew::ProxyService qw/restart_bmp_process/;
+
+=head1 SYNOPSIS
+
+    bmp-restart
+    bmp-restart check
+
+=head1 DESCRIPTION
+
+By default, this script will restart the proxy: it will look for the
+pid of any currently running BMP servers, and kill them. Next, it will
+start a new proxy up on localhost:8080 and then exit.
+
+If you pass any argument in, we'll first check the status of the proxy
+before restarting. If we can make a proxy, we won't do anything. If we
+can't make a proxy, we will proceed as normal via killing and
+restarting a new BMP process.
+
+=cut
+
+restart_bmp_process(@ARGV);
