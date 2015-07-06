@@ -1,0 +1,27 @@
+#! /usr/bin/perl
+
+# PODNAME: bmp-crontab
+# ABSTRACT: add our entries to the crontab
+use strict;
+use warnings;
+use feature qw/say/;
+use Honeydew::ProxyService qw/update_crontab/;
+
+=head1 SYNOPSIS
+
+    bmp-crontab # echoes the new crontab to STDOUT
+    bmp-crontab | crontab # OVERWRITES the current crontab with our section appended to the end
+
+=head1 DESCRIPTION
+
+This script can be used to modify your crontab to include the cronjobs
+that will take care of the Browsermob Proxy service. This script takes
+no arguments, and simply prints to STDOUT a modified crontab. If you'd
+like to replace your current crontab with the modified one, you should
+pipe the output to the crontab command like such:
+
+    bmp-crontab
+
+=cut
+
+say $_ for @{ update_crontab() };
