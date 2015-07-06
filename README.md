@@ -10,7 +10,7 @@ version 0.01
 
 # SYNOPSIS
 
-    $ bmp-update  # updates to the newest version of Browsermob Proxy from master
+    $ bmp-install # installs the specified version of Browsermob Proxy
     $ bmp-crontab # outputs to STDOUT a modified crontab
     $ bmp-restart # forcefully restarts the browsermob proxy
 
@@ -23,6 +23,12 @@ general.
 This repo stores the current binary of the Browsermob Server, as well
 as some crontab scripts to keep it up and running if it happens to
 die.
+
+If you've installed this from Stratopan or CPAN, you should run
+`bmp-install` first to get the BMP binaries into your path where this
+module expects them. Otherwise, `bmp-restart` won't accomplish
+anything - in particular, it won't start up a server because the
+server isn't included in the module tarball due to size constraints.
 
 # BUGS
 

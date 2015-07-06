@@ -1,5 +1,7 @@
 #/bin/sh
 
+# PODNAME: bmp-install
+# ABSTRACT: Help you download the BMP server binaries
 set -e
 
 PROJECT=Honeydew-ProxyService

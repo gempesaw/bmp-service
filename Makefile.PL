@@ -15,6 +15,7 @@ my %WriteMakefileArgs = (
   "DISTNAME" => "Honeydew-ProxyService",
   "EXE_FILES" => [
     "bin/bmp-crontab",
+    "bin/bmp-install",
     "bin/bmp-restart",
     "bin/bmp-update"
   ],
