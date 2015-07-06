@@ -18,7 +18,7 @@ my %WriteMakefileArgs = (
     "bin/bmp-restart",
     "bin/bmp-update"
   ],
-  "LICENSE" => "perl",
+  "LICENSE" => "mit",
   "NAME" => "Honeydew::ProxyService",
   "PREREQ_PM" => {
     "Browsermob::Proxy" => 0,
