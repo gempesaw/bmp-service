@@ -132,8 +132,13 @@ sub _get_bmp_start_command {
 }
 
 sub _bmp_process_args {
-    my $config = Honeydew::Config->instance;
-    my $port = $config->{proxy}->{proxy_server_port} // 8080;
+    my $port = 8080;
+    eval {
+        my $config = Honeydew::Config->instance;
+        if (exists $config->{proxy}->{proxy_server_port}) {
+            $port = $config->{proxy}->{proxy_server_port};
+        }
+    };
 
     my $args = ' --use-littleproxy true ';
     $args .= " --port=$port";
