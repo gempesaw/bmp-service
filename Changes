@@ -1,5 +1,8 @@
 Revision history for perl module Honeydew-ProxyService
 
+0.03 2015-09-24
+ - Restart proxy on port specified by config
+
 0.02 2015-07-06
  - Devise a working method for getting BMP binaries on to the server
 
