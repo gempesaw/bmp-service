@@ -3,6 +3,7 @@ requires "Cwd" => "0";
 requires "Exporter" => "0";
 requires "File::Basename" => "0";
 requires "File::Spec" => "0";
+requires "Honeydew::Config" => "0";
 requires "Honeydew::ExternalServices" => "0";
 requires "Honeydew::ExternalServices::Crontab" => "0";
 requires "feature" => "0";

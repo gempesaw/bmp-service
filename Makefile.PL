@@ -27,6 +27,7 @@ my %WriteMakefileArgs = (
     "Exporter" => 0,
     "File::Basename" => 0,
     "File::Spec" => 0,
+    "Honeydew::Config" => 0,
     "Honeydew::ExternalServices" => 0,
     "Honeydew::ExternalServices::Crontab" => 0,
     "feature" => 0,
@@ -36,7 +37,7 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "Test::Spec" => 0
   },
-  "VERSION" => "0.02",
+  "VERSION" => "0.03",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -50,6 +51,7 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Basename" => 0,
   "File::Spec" => 0,
+  "Honeydew::Config" => 0,
   "Honeydew::ExternalServices" => 0,
   "Honeydew::ExternalServices::Crontab" => 0,
   "Test::Spec" => 0,

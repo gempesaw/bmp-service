@@ -6,7 +6,7 @@ Honeydew::ProxyService - A collection of convenience functions for managing Brow
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # SYNOPSIS
 
