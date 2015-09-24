@@ -1,8 +1,7 @@
-#! /usr/bin/perl
-
 use strict;
 use warnings;
 use Test::Spec;
+use Honeydew::Config;
 use Honeydew::ProxyService;
 
 eval { Honeydew::ProxyService::_get_bmp_binary(); };
@@ -18,6 +17,9 @@ describe 'Proxy restart' => sub {
 
     describe 'execution command' => sub {
         my ($cmd);
+        my $config = Honeydew::Config->instance( file => __FILE__ );
+        $config->{proxy}->{proxy_server_port} = 8080;
+
         before each => sub {
             $cmd = Honeydew::ProxyService::_get_bmp_start_command();
         };
@@ -34,7 +36,9 @@ describe 'Proxy restart' => sub {
             like( $cmd, qr/--use-littleproxy true/ );
         };
 
-
+        it 'should specify the port from the config' => sub {
+            like( $cmd, qr/--port=8080/ );
+        };
     };
 };
 

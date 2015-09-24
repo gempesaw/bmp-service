@@ -11,6 +11,7 @@ use File::Basename qw/dirname/;
 use File::Spec;
 use feature qw/say/;
 use Browsermob::Proxy;
+use Honeydew::Config;
 use Honeydew::ExternalServices qw/daemonize/;
 use Honeydew::ExternalServices::Crontab qw/add_crontab_section/;
 
@@ -121,13 +122,23 @@ sub _get_bmp_binary {
 
 sub _get_bmp_start_command {
     my $bmp_binary = _get_bmp_binary();
-    my $args = ' --use-littleproxy true ';
+    my $args = _bmp_process_args();
 
     # TODO: utilize Honeydew::Config to set this on the correct port
     my $restart_cmd = 'JAVACMD=$(which java) PATH=/usr/bin:$PATH ' . $bmp_binary . $args;
     say $restart_cmd;
 
     return $restart_cmd;
+}
+
+sub _bmp_process_args {
+    my $config = Honeydew::Config->instance;
+    my $port = $config->{proxy}->{proxy_server_port} // 8080;
+
+    my $args = ' --use-littleproxy true ';
+    $args .= " --port=$port";
+
+    return $args;
 }
 
 sub start_new_bmp {
