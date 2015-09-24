@@ -4,3 +4,6 @@
 .build
 .dir-locals.el
 /lib/Honeydew/ProxyService/tmp-browsermob-proxy/
+/GTAGS
+/GPATH
+/GRTAGS
