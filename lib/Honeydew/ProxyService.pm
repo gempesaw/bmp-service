@@ -39,6 +39,24 @@ module expects them. Otherwise, C<bmp-restart> won't accomplish
 anything - in particular, it won't start up a server because the
 server isn't included in the module tarball due to size constraints.
 
+=head1 INSTALLATION
+
+This module is available from Stratopan and can be installed with
+C<cpanm>. On a new box with no prerequisites, the following should get
+you up and running:
+
+    $ curl -L http://cpanmin.us | perl - -l ~/perl5 -nf App::cpanminus local::lib
+    $ echo 'eval $(perl -I ~/perl5/lib/perl5 -Mlocal::lib)' >> ~/.bashrc
+    $ echo 'export PATH="$HOME/perl5/bin:$PATH"' >> ~/.bashrc
+
+Then, using the mirror-only options of C<cpanm> to install this module
+from Stratopan:
+
+    # install dependencies from CPAN
+    $ cpanmm --showdeps Honeydew::ProxyService | grep :: | grep -v "Working on" | xargs -I{} cpanm {}
+    # install private modules from Stratopan
+    $ cpanm --mirror-only --mirror https://<redacted>@stratopan.com/<redacted>/Sharecare/master Honeydew::ProxyService
+
 =cut
 
 sub update_crontab {
