@@ -1,5 +1,8 @@
 Revision history for perl module Honeydew-ProxyService
 
+0.04 2016-02-03
+ - Download BMP binary from Github release page
+
 0.03 2015-09-24
  - Restart proxy on port specified by config
 
