@@ -4,17 +4,23 @@
 # ABSTRACT: Help you download the BMP server binaries
 set -e
 
-PROJECT=Honeydew-ProxyService
-REPO=https://github.com/honeydew-sc/$PROJECT
+cd
+PROJECTDIR="$(dirname `perldoc -l Honeydew::ProxyService`)/ProxyService"
+echo $PROJECTDIR
 
-cd /tmp
-rm -rf /tmp/$PROJECT
-git clone $REPO
+# the directory might already exist if we're doing an update
+mkdir -p $PROJECTDIR
+cd $PROJECTDIR
+find $PROJECTDIR -name "browsermob-proxy*" -type d | xargs rm -rf
 
-cd /tmp/$PROJECT
-git checkout cpan
+echo "Downloading BMP binary..."
+BMP_ZIP_URL="https://github.com/lightbody/browsermob-proxy/releases/download/browsermob-proxy-2.1.0-beta-4/browsermob-proxy-2.1.0-beta-4-bin.zip"
+curl -L $BMP_ZIP_URL -o /tmp/bmp.zip
+unzip /tmp/bmp.zip -d $PROJECTDIR
 
-perl Makefile.PL
-make
-make test
-make install
+echo "
+
+Renaming folder to remove version number..."
+mv $PROJECTDIR/browsermob-proxy* $PROJECTDIR/browsermob-proxy
+
+ls -al $PROJECTDIR/browsermob-proxy
