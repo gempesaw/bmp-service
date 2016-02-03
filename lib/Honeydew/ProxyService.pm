@@ -19,9 +19,10 @@ use Honeydew::ExternalServices::Crontab qw/add_crontab_section/;
 
 =head1 SYNOPSIS
 
-    $ bmp-install # installs the specified version of Browsermob Proxy
-    $ bmp-crontab # outputs to STDOUT a modified crontab
-    $ bmp-restart # forcefully restarts the browsermob proxy
+    $ bmp-install          # installs the specified version of Browsermob Proxy
+    $ bmp-crontab          # outputs to STDOUT a modified crontab
+    $ bmp-restart          # check status, restart if proxy is broken
+    $ bmp-restart ANYTHING # force restart of proxy
 
 =head1 DESCRIPTION
 
@@ -29,15 +30,11 @@ HoneydewSC uses Browsermob Proxy to analyze the traffic that our tests
 generate in order to assert tests about analytics and traffic in
 general.
 
-This repo stores the current binary of the Browsermob Server, as well
-as some crontab scripts to keep it up and running if it happens to
-die.
-
 If you've installed this from Stratopan or CPAN, you should run
 C<bmp-install> first to get the BMP binaries into your path where this
 module expects them. Otherwise, C<bmp-restart> won't accomplish
 anything - in particular, it won't start up a server because the
-server isn't included in the module tarball due to size constraints.
+server isn't included in the module tarball.
 
 =head1 INSTALLATION
 

@@ -16,8 +16,7 @@ my %WriteMakefileArgs = (
   "EXE_FILES" => [
     "bin/bmp-crontab",
     "bin/bmp-install",
-    "bin/bmp-restart",
-    "bin/bmp-update"
+    "bin/bmp-restart"
   ],
   "LICENSE" => "mit",
   "NAME" => "Honeydew::ProxyService",
@@ -37,7 +36,7 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "Test::Spec" => 0
   },
-  "VERSION" => "0.03",
+  "VERSION" => "0.04",
   "test" => {
     "TESTS" => "t/*.t"
   }
