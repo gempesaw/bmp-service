@@ -14,7 +14,7 @@ cd $PROJECTDIR
 find $PROJECTDIR -name "browsermob-proxy*" -type d | xargs rm -rf
 
 echo "Downloading BMP binary..."
-BMP_ZIP_URL="https://github.com/lightbody/browsermob-proxy/releases/download/browsermob-proxy-2.1.0-beta-4/browsermob-proxy-2.1.0-beta-4-bin.zip"
+BMP_ZIP_URL="https://github.com/lightbody/browsermob-proxy/releases/download/browsermob-proxy-2.1.1/browsermob-proxy-2.1.1-bin.zip"
 curl -L $BMP_ZIP_URL -o /tmp/bmp.zip
 unzip /tmp/bmp.zip -d $PROJECTDIR
 

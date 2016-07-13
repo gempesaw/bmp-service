@@ -1,5 +1,8 @@
 Revision history for perl module Honeydew-ProxyService
 
+0.05 2016-07-13
+ - Update BMP version for HTTPS connection issues
+
 0.04 2016-02-03
  - Download BMP binary from Github release page
 
